@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="#ffff0000">
     <ImageView
+        android:id="@+id/im_logo"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
