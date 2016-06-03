@@ -18,6 +18,11 @@ public class News implements Serializable {
     private String link="";
     //新闻类型
     private int type;
+    //时间戳
+    private String stamp;
+
+    public News(int type, int nid, String stamp, String icon, String title, String summary, String link) {
+    }
 
     public String getTitle() {
         return title;
@@ -47,11 +52,20 @@ public class News implements Serializable {
         this.icon=list_image;
         this.link=url;
         this.type=type;
+        this.stamp=stamp;
     }
 
     @Override
     public String toString() {
         return "News[nid="+nid+",title="+title+",summary=" + summary+"," +
                 " icon=" + icon +",url=" + link + ", type=" + type+"]";
+    }
+
+    public int getNid() {
+        return nid;
+    }
+
+    public String  getStamp() {
+        return stamp;
     }
 }

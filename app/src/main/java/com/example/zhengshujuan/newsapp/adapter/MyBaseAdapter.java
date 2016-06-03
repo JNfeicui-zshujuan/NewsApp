@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by zhengshujuan on 2016/6/1.
  */
-public class MyBaseAdapter extends BaseAdapter {
+public abstract class MyBaseAdapter<N> extends BaseAdapter {
     protected LayoutInflater inflater;
     protected Context context;
     protected List<News> myList=new ArrayList<>();
@@ -31,28 +31,104 @@ public class MyBaseAdapter extends BaseAdapter {
         myList.clear();
     }
     //查找所有数据
-    public List<News> get
+    public List<News> getAdapterData(){
+        return list;
+    }
+
+    /**
+     * 封装添加一条记录的方法
+     */
+    //news一套数据的对象,isClearOld是否清除原数据
+    public void appendData(News news,boolean isCleadOld){
+        if (news==null){
+            return;
+        }
+        if(isCleadOld){
+            list.clear();
+        }//添加一条新数据到最后
+        list.add(news);
+    }
+    /*
+    * 添加多条记录*/
+    public void addenData(ArrayList<News> alist,boolean isClearOld){
+        if (alist==null){
+            return;
+        }
+        if (isClearOld){
+            list.clear();
+        }
+        list.addAll(alist);
+    }
+    /**
+     *  添加一条记录到第一条
+     * @param t
+     * @param isClearOld
+     */
+    public void appendDataTop(News t,boolean isClearOld) {
+        if (t == null) { // 非空验证
+            return;
+        }
+        if (isClearOld) {// 如果 true  清空原数据
+            list.clear();
+        }
+    }
+    /**
+     *  添加多条记录到顶部
+     * @param alist  数据集合
+     * @param isClearOld  是否清空原数据
+     */
+    public void addendDataTop(ArrayList<News> alist,boolean isClearOld) {
+        if (alist == null) {
+            return;
+        }
+        if (isClearOld) {
+            list.clear();
+        }
+        list.addAll(0, alist);
+    }
+            /*
+            * 刷新适配器
+            * */
+    public void update(){
+        //刷新适配器
+        this.notifyDataSetChanged();
+
+    }
     @Override
     public int getCount() {
         if (list == null) {
             return 0;
         } else {
-            return 0;
+            return list.size();
         }
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        if (list==null){
+            return null;
+        }
+        //没有数据返回空
+        if (position>list.size()-1){
+            return null;
+        }
+        else {
+        return list.get(position);}
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        return getMyView(position,convertView,parent);
     }
+    // 作为预留方法，定义为抽象方法，要求子类继承该基础类时，必须重写该方法
+    public abstract View getMyView(int position, View convertView, ViewGroup
+            parent);{
+
+}
+
 }

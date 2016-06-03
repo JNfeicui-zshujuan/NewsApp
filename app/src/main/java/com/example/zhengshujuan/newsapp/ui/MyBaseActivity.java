@@ -129,7 +129,7 @@ public class MyBaseActivity extends Activity {
         showToast(getString(resId));
     }
 
-    private void showToast(String msg) {
+    public void showToast(String msg) {
         if (toast == null)
             toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
         toast.setDuration(Toast.LENGTH_SHORT);
